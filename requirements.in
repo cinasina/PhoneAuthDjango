@@ -1,0 +1,27 @@
+# Django Core and Related
+django>=4.2,<4.3
+django-minio-storage>=0.5.7
+django-celery-beat>=2.5.0
+django-redis>=5.3.0
+django-cors-headers>=4.3.1
+django-filter>=23.5
+django-csp>=3.7
+celery>=5.3.6
+
+# Django REST Framework and Related
+djangorestframework>=3.15.2
+djangorestframework-simplejwt>=5.3.1
+drf-spectacular>=0.27.2
+
+# Database and Server
+psycopg2-binary>=2.9.9
+gunicorn>=22.0.0
+whitenoise>=6.6.0
+
+# Utilities and Tools
+pillow>=10.4.0
+python-decouple>=3.8
+kavenegar>=1.1.2
+sentry-sdk>=1.45.0
+pytest>=7.4.0
+pytest-django>=4.8.0
