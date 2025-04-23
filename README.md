@@ -12,6 +12,7 @@ A sample authentication system built with Django and Django REST Framework, demo
 - Secure session management using UUID-based session IDs
 - Input validation and user-friendly error messages
 - Platform-agnostic: Works for web, mobile, and desktop clients
+- Swagger UI for API documentation
 
 ## Requirements
 
@@ -58,6 +59,7 @@ A sample authentication system built with Django and Django REST Framework, demo
    SECRET_KEY=your-secret-key
    DEBUG=True
    REDIS_URL=redis://localhost:6379/0
+   SWAGGER=True
    ```
 
 5. **Apply migrations**:
@@ -110,8 +112,18 @@ All authentication-related endpoints are under the `/accounts/` URL path.
 | /accounts/register/           | POST   | Register or check phone number    | `{ "mobile_number": "09123456789" }`                    |
 | /accounts/verify/otp/         | POST   | Verify OTP for new users          | `{ "session_id": "uuid", "code": "123456" }`           |
 | /accounts/set-password/       | POST   | Set password for new users        | `{ "session_id": "uuid", "password": "pass1234" }`     |
-| /accounts/user-info/          | POST   | Complete user information         | `{ "session_id": "uuid", "email": "user@example.com", "first_name": "Sina", "last_name": "Kh" }` |
+| /accounts/user-info/          | POST   | Complete user information         | `{ "session_id": "uuid", "email": "user@example.com", "first_name": "Ali", "last_name": "Ahmadi" }` |
 | /accounts/login/              | POST   | Login with phone and password     | `{ "session_id": "uuid", "password": "pass1234" }`     |
+
+### API Documentation (Swagger)
+
+If `SWAGGER=True` is enabled in your `.env`, Swagger UI will be available at:
+
+```
+/swagger/
+```
+
+This interface allows you to explore and test your API endpoints interactively.
 
 ### Example Flow
 
@@ -139,6 +151,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 ```
+
+### Swagger
+
+Enable or disable Swagger using the `SWAGGER` environment variable. Custom settings can be configured via `SWAGGER_SETTINGS` in `settings.py`.
 
 ### Rate Limiting
 
