@@ -103,23 +103,25 @@ You can also configure environment variables via Docker secrets or environment f
 
 ### API Endpoints
 
-| Endpoint             | Method | Description                       | Payload Example                                         |
-|----------------------|--------|-----------------------------------|----------------------------------------------------------|
-| /api/register/       | POST   | Register or check phone number    | `{ "mobile_number": "09123456789" }`                    |
-| /api/verify-otp/     | POST   | Verify OTP for new users          | `{ "session_id": "uuid", "code": "123456" }`           |
-| /api/set-password/   | POST   | Set password for new users        | `{ "session_id": "uuid", "password": "pass1234" }`     |
-| /api/user-info/      | POST   | Complete user information         | `{ "session_id": "uuid", "email": "user@example.com", "first_name": "Ali", "last_name": "Ahmadi" }` |
-| /api/login/          | POST   | Login with phone and password     | `{ "session_id": "uuid", "password": "pass1234" }`     |
+All authentication-related endpoints are under the `/accounts/` URL path.
+
+| Endpoint                       | Method | Description                       | Payload Example                                         |
+|--------------------------------|--------|-----------------------------------|----------------------------------------------------------|
+| /accounts/register/           | POST   | Register or check phone number    | `{ "mobile_number": "09123456789" }`                    |
+| /accounts/verify/otp/         | POST   | Verify OTP for new users          | `{ "session_id": "uuid", "code": "123456" }`           |
+| /accounts/set-password/       | POST   | Set password for new users        | `{ "session_id": "uuid", "password": "pass1234" }`     |
+| /accounts/user-info/          | POST   | Complete user information         | `{ "session_id": "uuid", "email": "user@example.com", "first_name": "Sina", "last_name": "Kh" }` |
+| /accounts/login/              | POST   | Login with phone and password     | `{ "session_id": "uuid", "password": "pass1234" }`     |
 
 ### Example Flow
 
-1. **Register**: Send phone number to `/api/register/`.
+1. **Register**: Send phone number to `/accounts/register/`.
     - Existing user: Receive `next_step: "password"`.
     - New user: Receive `next_step: "otp"` and an OTP via SMS.
-2. **Verify OTP**: Send OTP to `/api/verify-otp/` to get `next_step: "set_password"`.
-3. **Set Password**: Send password to `/api/set-password/` to get `next_step: "user_info"`.
-4. **Complete Info**: Send user info to `/api/user-info/` to receive JWT tokens.
-5. **Login**: Send phone number and password to `/api/login/` to receive JWT tokens.
+2. **Verify OTP**: Send OTP to `/accounts/verify/otp/` to get `next_step: "set_password"`.
+3. **Set Password**: Send password to `/accounts/set-password/` to get `next_step: "user_info"`.
+4. **Complete Info**: Send user info to `/accounts/user-info/` to receive JWT tokens.
+5. **Login**: Send phone number and password to `/accounts/login/` to receive JWT tokens.
 
 ## Configuration
 
