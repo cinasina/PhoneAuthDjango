@@ -1,25 +1,32 @@
 class Messages:
     class User:
-        NOT_ACTIVED_VERIFIED = "حساب تأیید یا فعال نشده است"
+        NOT_ACTIVATED_VERIFIED = "حساب کاربری فعال یا تأیید نشده است"
 
     class MobileNumber:
-        MOBILE_NUMBER_MISSING = "شماره همراه وارد شود"
-        MOBILE_NUMBER_NOT_VALID = "شماره همراه وارد شده صحیح نمی باشد"
+        MISSING = "لطفاً شماره همراه را وارد کنید"
+        INVALID = "شماره همراه واردشده معتبر نیست"
 
     class Password:
-        WRONG_PASSWORD = "رمز عبور صحیح نمی باشد"
+        INCORRECT = "رمز عبور نادرست است"
+        SET_SUCCESS = "رمز عبور با موفقیت ثبت شد"
 
-    class Email:
-        INVALID_EMAIL = "ایمیل وارد شده صحیح نمی باشد"
-        DUPLICATE_EMAIL = "ایمیل وارد شده تکراری است"
+    class UserInfo:
+        NAME_MISSING = "لطفاً نام را وارد کنید"
+        LASTNAME_MISSING = "لطفاً نام خانوادگی را وارد کنید"
+        INVALID_EMAIL = "ایمیل واردشده معتبر نیست"
+        DUPLICATE_EMAIL = "ایمیل واردشده قبلاً ثبت شده است"
+        CREATED_SUCCESS = "اطلاعات کاربری با موفقیت ثبت شد"
 
     class OTP:
-        OTP_MISSING = "کد تأیید وارد نشده است"
-        OTP_INVALID = "کد تأیید نامعتبر است"
+        MISSING = "لطفاً کد تأیید را وارد کنید"
+        INVALID = "کد تأیید نامعتبر است"
+        VERIFIED = "کد تأیید با موفقیت تأیید شد"
 
+    class Session:
+        INVALID = "جلسه نامعتبر است"
 
-    class SESSION:
-        SESSION_INVALID = "شماره همراه وارد شده صحیح نمی باشد"
-
-    class BLOCK:
+    class Block:
         TOO_MANY_ATTEMPTS = "تلاش‌های بیش از حد. لطفاً یک ساعت دیگر امتحان کنید"
+
+    class Login:
+        SUCCESSFUL = "با موفقیت وارد شدید"

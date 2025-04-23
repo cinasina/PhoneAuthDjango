@@ -89,7 +89,9 @@ DATABASES = {
 AUTH_USER_MODEL = "accounts.User"
 AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -112,12 +114,16 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # MinIO Storage
 DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
-MINIO_STORAGE_ENDPOINT = config("MINIO_ENDPOINT_URL", default="https://minio.yourdomain.com")
+MINIO_STORAGE_ENDPOINT = config(
+    "MINIO_ENDPOINT_URL", default="https://minio.yourdomain.com"
+)
 MINIO_STORAGE_ACCESS_KEY = config("MINIO_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = config("MINIO_SECRET_KEY")
 MINIO_STORAGE_BUCKET_NAME = config("MINIO_BUCKET_NAME")
 MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_MEDIA_URL = config("MINIO_MEDIA_URL", default="https://minio.yourdomain.com/your-bucket")
+MINIO_STORAGE_MEDIA_URL = config(
+    "MINIO_MEDIA_URL", default="https://minio.yourdomain.com/your-bucket"
+)
 MINIO_STORAGE_USE_HTTPS = config("MINIO_STORAGE_USE_HTTPS", cast=bool, default=False)
 
 # Whitenoise
@@ -129,7 +135,9 @@ if config("ENABLE_WHITENOISE", cast=bool, default=False):
 
 # REST Framework
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_THROTTLE_CLASSES": (
@@ -144,7 +152,9 @@ REST_FRAMEWORK = {
 }
 
 if config("DISABLE_BROWSEABLE_API", cast=bool, default=False):
-    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = ("rest_framework.renderers.JSONRenderer",)
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
+        "rest_framework.renderers.JSONRenderer",
+    )
 
 # Swagger
 SWAGGER = config("SWAGGER", cast=bool, default=False)
@@ -182,9 +192,13 @@ SIMPLE_JWT = {
 
 # Celery
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND", default="redis://localhost:6379/1")
+CELERY_RESULT_BACKEND = config(
+    "CELERY_RESULT_BACKEND", default="redis://localhost:6379/1"
+)
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_WORKER_CONCURRENCY = config("CELERY_WORKER_CONCURRENCY", cast=int, default=multiprocessing.cpu_count() * 2)
+CELERY_WORKER_CONCURRENCY = config(
+    "CELERY_WORKER_CONCURRENCY", cast=int, default=multiprocessing.cpu_count() * 2
+)
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_TIMEZONE = "Asia/Tehran"
 CELERY_ACCEPT_CONTENT = ["json"]
@@ -198,22 +212,26 @@ CELERY_WORKER_PREFETCH_MULTIPLIER = 1
 
 # Redis Cache
 REDIS_CACHE_URL = config("REDIS_CACHE_URL", default="redis://localhost:6379/2")
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_CACHE_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
-        },
-        "TIMEOUT": 300,
+CACHES = (
+    {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_CACHE_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            },
+            "TIMEOUT": 300,
+        }
     }
-} if config("USE_REDIS_CACHE", cast=bool, default=True) else {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "unique-snowflake",
+    if config("USE_REDIS_CACHE", cast=bool, default=True)
+    else {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "unique-snowflake",
+        }
     }
-}
+)
 
 # Security Configurations
 SESSION_COOKIE_SAMESITE = "Lax"
@@ -229,8 +247,15 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
-CSP_IMG_SRC = ("'self'", "data:", "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com")
-CSP_MEDIA_SRC = ("'self'", "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com")
+CSP_IMG_SRC = (
+    "'self'",
+    "data:",
+    "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
+)
+CSP_MEDIA_SRC = (
+    "'self'",
+    "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
+)
 CSP_CONNECT_SRC = ("'self'",)
 
 if not DEBUG and config("USE_SSL_CONFIG", cast=bool, default=False):
@@ -246,7 +271,9 @@ if not DEBUG and config("USE_SSL_CONFIG", cast=bool, default=False):
 
 # CORS
 CORS_ALLOWED_ORIGINS = config(
-    "CORS_ALLOWED_ORIGINS", cast=Csv(), default=["https://yourdomain.com", "http://localhost:3000"]
+    "CORS_ALLOWED_ORIGINS",
+    cast=Csv(),
+    default=["https://yourdomain.com", "http://localhost:3000"],
 )
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
@@ -265,7 +292,11 @@ CORS_ALLOW_HEADERS = [
 CSRF_TRUSTED_ORIGINS = config(
     "CSRF_TRUSTED_ORIGINS",
     cast=Csv(),
-    default=["https://yourdomain.com", "https://www.yourdomain.com", "https://*.yourdomain.com"],
+    default=[
+        "https://yourdomain.com",
+        "https://www.yourdomain.com",
+        "https://*.yourdomain.com",
+    ],
 )
 
 # Kavenegar

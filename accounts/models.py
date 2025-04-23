@@ -15,9 +15,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[validators.mobile_number_validator],
         unique=True,
     )
-    email = models.EmailField(verbose_name="ایمیل", max_length=255, blank=True, null=True, unique=True)
-    first_name = models.CharField(verbose_name="نام", max_length=30, blank=True, null=True,)
-    last_name = models.CharField(verbose_name="نام خانوادگی", max_length=50, blank=True, null=True,)
+    email = models.EmailField(
+        verbose_name="ایمیل", max_length=255, blank=True, null=True, unique=True
+    )
+    first_name = models.CharField(
+        verbose_name="نام",
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    last_name = models.CharField(
+        verbose_name="نام خانوادگی",
+        max_length=50,
+        blank=True,
+        null=True,
+    )
     user_type = models.IntegerField(
         verbose_name="نوع کاربر",
         choices=UserType.choices,
