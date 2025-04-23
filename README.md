@@ -1,6 +1,6 @@
-# Django Phone-Based Authentication
+# PhoneAuthDjango
 
-A secure and scalable authentication system built with Django and Django REST Framework, designed for phone number-based user registration and login. It supports OTP verification, password setting, and user info completion, with IP-based rate limiting to prevent abuse. This API can be used across various platforms, including web, mobile, and desktop applications.
+A sample authentication system built with Django and Django REST Framework, demonstrating phone number-based user registration and login. It includes OTP verification, password setup, user info collection, and JWT authentication. This project is suitable for demonstration or learning purposes and can be integrated into various platforms like web or mobile applications.
 
 ## Features
 
@@ -20,6 +20,7 @@ A secure and scalable authentication system built with Django and Django REST Fr
 - Django REST Framework
 - django-rest-framework-simplejwt
 - Redis (for caching OTPs and session IDs)
+- PostgreSQL (or compatible database)
 
 ## Installation
 
@@ -27,7 +28,7 @@ A secure and scalable authentication system built with Django and Django REST Fr
 
    ```bash
    git clone https://github.com/cinasina/PhoneAuthDjango.git
-   cd django-phone-auth
+   cd PhoneAuthDjango
    ```
 
 2. **Create a virtual environment**:
@@ -42,6 +43,12 @@ A secure and scalable authentication system built with Django and Django REST Fr
    ```bash
    pip install -r requirements.txt
    ```
+
+   > You can use `pip-compile` from `pip-tools` to generate `requirements.txt` from `requirements.in`:
+   > ```bash
+   > pip install pip-tools
+   > pip-compile requirements.in
+   > ```
 
 4. **Set up environment variables**:
 
@@ -64,6 +71,33 @@ A secure and scalable authentication system built with Django and Django REST Fr
    ```bash
    python manage.py runserver
    ```
+
+## Docker Setup
+
+You can run the app using Docker for local development. A basic `Dockerfile` and `docker-compose.yml` are provided.
+
+### Build and Run (Development Mode)
+
+```bash
+docker build -t phone-auth .
+docker run -p 8000:8000 phone-auth
+```
+
+### Using Docker Compose
+
+```bash
+docker-compose up --build
+```
+
+### Production Deployment
+
+For production, consider using Gunicorn and Whitenoise for static file serving. Example CMD in Dockerfile:
+
+```dockerfile
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000"]
+```
+
+You can also configure environment variables via Docker secrets or environment files.
 
 ## Usage
 
@@ -108,27 +142,7 @@ SIMPLE_JWT = {
 
 Blocks users after 3 failed attempts (password, OTP, or phone number) for 1 hour.
 
-## Contributing
-
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add your feature"
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/your-feature
-   ```
-5. Open a pull request.
-
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Contact
-
-For issues or questions, open an issue on GitHub or contact [cina72b@gmail.com](mailto:cina72b@gmail.com).
