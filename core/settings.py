@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 # URL and WSGI
-ROOT_URLCONF = "Ubaar.urls"
+ROOT_URLCONF = "core.urls"
 WSGI_APPLICATION = "core.wsgi.application"
 
 # Templates
