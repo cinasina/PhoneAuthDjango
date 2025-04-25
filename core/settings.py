@@ -244,19 +244,23 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
-CSP_IMG_SRC = (
-    "'self'",
-    "data:",
-    "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
-)
-CSP_MEDIA_SRC = (
-    "'self'",
-    "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
-)
-CSP_CONNECT_SRC = ("'self'",)
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'default-src': ("'self'",),
+        'script-src': ("'self'",),
+        'style-src': ("'self'", "'unsafe-inline'"),
+        'img-src': (
+            "'self'",
+            "data:",
+            "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
+        ),
+        'media-src': (
+            "'self'",
+            "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
+        ),
+        'connect-src': ("'self'",),
+    }
+}
 
 if not DEBUG and config("USE_SSL_CONFIG", cast=bool, default=False):
     SESSION_COOKIE_SECURE = True
