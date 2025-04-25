@@ -3,7 +3,7 @@ from django.utils.timezone import timezone
 
 
 class FailedAttempt(models.Model):
-    ip = models.IPAddressField(
+    ip = models.GenericIPAddressField(
         verbose_name="IP",
     )
     mobile_number = models.CharField(
