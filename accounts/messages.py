@@ -1,6 +1,6 @@
 class Messages:
     class User:
-        NOT_ACTIVATED_VERIFIED = "حساب کاربری فعال یا تأیید نشده است"
+        BANNED = "حساب کاربری غیرفعال است. با پشتیبانی در ارتباط باشید"
 
     class MobileNumber:
         MISSING = "لطفاً شماره همراه را وارد کنید"
