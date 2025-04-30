@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.timezone import timezone
+from django.utils import timezone
 
 
 class FailedAttempt(models.Model):
