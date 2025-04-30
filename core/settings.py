@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "corsheaders",
     "csp",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     # Custom Apps
     "accounts",
     "blocker",
@@ -245,20 +247,20 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 
 CONTENT_SECURITY_POLICY = {
-    'DIRECTIVES': {
-        'default-src': ("'self'",),
-        'script-src': ("'self'",),
-        'style-src': ("'self'", "'unsafe-inline'"),
-        'img-src': (
+    "DIRECTIVES": {
+        "default-src": ("'self'",),
+        "script-src": ("'self'",),
+        "style-src": ("'self'", "'unsafe-inline'"),
+        "img-src": (
             "'self'",
             "data:",
             "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
         ),
-        'media-src': (
+        "media-src": (
             "'self'",
             "http://localhost:9000" if DEBUG else "https://minio.yourdomain.com",
         ),
-        'connect-src': ("'self'",),
+        "connect-src": ("'self'",),
     }
 }
 
