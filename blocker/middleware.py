@@ -9,12 +9,8 @@ class BlockMiddleware:
 
     def __call__(self, request):
         ip = request.META.get("REMOTE_ADDR")
-
-        try:
-            attempt_user = models.FailedAttempt.objects.get(ip=ip)
+        attempt_users = models.FailedAttempt.objects.filter(ip=ip)
+        for attempt_user in attempt_users:
             if attempt_user.is_blocked():
                 return HttpResponseForbidden(Messages.BLOCK.TOO_MANY_ATTEMPTS)
-        except models.FailedAttempt.DoesNotExist:
-            pass
-
         return self.get_response(request)
