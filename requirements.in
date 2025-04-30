@@ -5,13 +5,14 @@ django-celery-beat==2.5.0
 django-redis==5.4.0
 django-cors-headers==4.3.1
 django-filter==23.5
-django-csp==4.1.0
+django-csp==4.0
 celery==5.3.6
 
 # Django REST Framework and Related
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
 drf-spectacular==0.27.2
+drf-spectacular[sidecar]
 
 # Database and Server
 psycopg2-binary==2.9.9
