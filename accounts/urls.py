@@ -10,5 +10,5 @@ urlpatterns = [
     path("set-password/", views.SetPasswordView.as_view(), name="set-password"),
     path("user-info/", views.UserInfoView.as_view(), name="complete-profile"),
     path("login/", views.LoginView.as_view(), name="login"),
-    path("refresh-token", jwt_views.TokenRefreshView.as_view(), name="refresh_token"),
+    path("refresh-token/", jwt_views.TokenRefreshView.as_view(), name="refresh_token"),
 ]
