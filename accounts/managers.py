@@ -9,7 +9,7 @@ class UserManager(BaseUserManager):
         """
         if not mobile_number:
             raise ValueError("شماره همراه وارد شود")
-        validators.mobile_number_validation(mobile_number)
+        validators.mobile_number_validator(mobile_number)
         user = self.model(mobile_number=mobile_number)
         user.set_password(password)
         user.save(using=self._db)
