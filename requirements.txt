@@ -20,7 +20,7 @@ attrs==25.3.0
     #   referencing
 billiard==4.2.1
     # via celery
-celery==5.5.1
+celery==5.3.6
     # via
     #   -r requirements.in
     #   django-celery-beat
@@ -64,13 +64,14 @@ django==4.2.20
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-spectacular
-django-celery-beat==2.8.0
+    #   drf-spectacular-sidecar
+django-celery-beat==2.5.0
     # via -r requirements.in
-django-cors-headers==4.7.0
+django-cors-headers==4.3.1
     # via -r requirements.in
 django-csp==4.0
     # via -r requirements.in
-django-filter==25.1
+django-filter==23.5
     # via -r requirements.in
 django-minio-storage==0.5.7
     # via -r requirements.in
@@ -78,16 +79,18 @@ django-redis==5.4.0
     # via -r requirements.in
 django-timezone-field==7.1
     # via django-celery-beat
-djangorestframework==3.16.0
+djangorestframework==3.15.2
     # via
     #   -r requirements.in
     #   djangorestframework-simplejwt
     #   drf-spectacular
-djangorestframework-simplejwt==5.5.0
+djangorestframework-simplejwt==5.3.1
     # via -r requirements.in
-drf-spectacular==0.28.0
+drf-spectacular[sidecar]==0.27.2
     # via -r requirements.in
-gunicorn==23.0.0
+drf-spectacular-sidecar==2025.4.1
+    # via drf-spectacular
+gunicorn==22.0.0
     # via -r requirements.in
 idna==3.10
     # via requests
@@ -110,13 +113,13 @@ packaging==24.2
     #   django-csp
     #   gunicorn
     #   pytest
-pillow==11.2.1
+pillow==10.2.0
     # via -r requirements.in
 pluggy==1.5.0
     # via pytest
 prompt-toolkit==3.0.51
     # via click-repl
-psycopg2-binary==2.9.10
+psycopg2-binary==2.9.9
     # via -r requirements.in
 pycparser==2.22
     # via cffi
@@ -124,11 +127,11 @@ pycryptodome==3.22.0
     # via minio
 pyjwt==2.9.0
     # via djangorestframework-simplejwt
-pytest==8.3.5
+pytest==7.4.0
     # via
     #   -r requirements.in
     #   pytest-django
-pytest-django==4.11.1
+pytest-django==4.8.0
     # via -r requirements.in
 python-crontab==3.2.0
     # via django-celery-beat
@@ -152,7 +155,7 @@ rpds-py==0.24.0
     # via
     #   jsonschema
     #   referencing
-sentry-sdk==2.26.1
+sentry-sdk==1.45.0
     # via -r requirements.in
 six==1.17.0
     # via python-dateutil
@@ -164,6 +167,7 @@ typing-extensions==4.13.2
     #   referencing
 tzdata==2025.2
     # via
+    #   celery
     #   django
     #   django-celery-beat
     #   kombu
@@ -181,5 +185,5 @@ vine==5.1.0
     #   kombu
 wcwidth==0.2.13
     # via prompt-toolkit
-whitenoise==6.9.0
+whitenoise==6.6.0
     # via -r requirements.in
