@@ -23,6 +23,21 @@ class PasswordSerializer(serializers.Serializer):
     )
 
 
+class MobileLoginSerializer(serializers.Serializer):
+    mobile_number = serializers.CharField(
+        required=True,
+        error_messages={"required": Messages.MobileNumber.MISSING},
+        validators=[validators.mobile_number_validator],
+    )
+    password = serializers.CharField(
+        required=True,
+        write_only=True,
+        min_length=8,
+        max_length=70,
+        error_messages={"required": Messages.Password.INCORRECT},
+    )
+
+
 class OTPSerializer(serializers.Serializer):
     session_id = serializers.CharField(required=True, write_only=True)
     code = serializers.CharField(
