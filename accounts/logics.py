@@ -39,6 +39,7 @@ def get_session_id(session_id):
     user_id = cache.get(session_id)
     if not user_id:
         raise exceptions.ParseError({"message": Messages.Session.INVALID})
+    cache.set(session_id, user_id, timeout=120)
     return user_id
 
 
@@ -46,15 +47,19 @@ def check_user_mobile_number(mobile_number, ip):
     blocker_logics.check_failed_attempts({"ip": ip, "mobile_number": mobile_number})
     try:
         user = User.objects.get(mobile_number=mobile_number)
-        if not user.is_verified or not user.is_active:
-            raise exceptions.ParseError(
-                {"message": Messages.User.NOT_ACTIVATED_VERIFIED}
-            )
+
+        if not user.is_active and user.has_usable_password():
+            raise exceptions.PermissionDenied({"message": Messages.User.BANNED})
+
+        if not user.is_verified:
+            tasks.send_otp.delay(mobile_number)
+            return set_session_id(mobile_number), "otp"
+
         return set_session_id(mobile_number), "password"
     except User.DoesNotExist:
         create_user(mobile_number)
         session_id = set_session_id(mobile_number)
-        tasks.send_otp(mobile_number)
+        tasks.send_otp.delay(mobile_number)
         return session_id, "otp"
 
 
@@ -67,10 +72,28 @@ def check_user_password(session_id, password, ip):
     raise exceptions.AuthenticationFailed({"message": Messages.Password.INCORRECT})
 
 
+def login_with_password(mobile_number, password, ip):
+    blocker_logics.check_failed_attempts({"ip": ip, "mobile_number": mobile_number})
+    try:
+        user = User.objects.get(mobile_number=mobile_number)
+    except User.DoesNotExist:
+        raise exceptions.AuthenticationFailed({"message": Messages.Password.INCORRECT})
+
+    if not user.is_active and user.has_usable_password():
+        raise exceptions.PermissionDenied({"message": Messages.User.BANNED})
+
+    if user.check_password(password):
+        return generate_jwt_token(user)
+
+    raise exceptions.AuthenticationFailed({"message": Messages.Password.INCORRECT})
+
+
 def create_user(mobile_number):
-    return User.objects.create_user(
-        mobile_number=mobile_number, is_verified=False, is_active=False
-    )
+    user = User.objects.create_user(mobile_number=mobile_number)
+    user.is_verified = False
+    user.is_active = False
+    user.save()
+    return user
 
 
 def check_otp(session_id, user_otp, ip):
